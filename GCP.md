@@ -1,231 +1,210 @@
-# Good Coding Practices (GCP) - Security & Best Practices
+# Google Cloud Platform Deployment Guide
 
-## 🔐 Security Standards
+## Project Overview
+**Replace this section with your project's GCP deployment information**
 
-### Environment Variables & Secrets Management
-- **NEVER commit credentials, API keys, or secrets to git**
-- Always use `.env` files for sensitive configuration
-- Include `.env.example` with dummy values to show required variables
-- Add `.env*` to `.gitignore` (except `.env.example`)
-- Use different `.env` files for different environments (`.env.local`, `.env.production`)
+- **Project Name**: [Your GCP Project Name]
+- **Project Type**: [WEBAPP/API/STATIC/etc.]
+- **Primary Service**: [Cloud Run/App Engine/Compute Engine/etc.]
+- **Database**: [Cloud SQL/Firestore/etc.]
+- **Domain**: [Your custom domain if applicable]
+
+## Prerequisites
+
+### Required Tools
+- [ ] Google Cloud CLI (`gcloud`) installed and configured
+- [ ] Docker installed (for containerized deployments)
+- [ ] Project dependencies installed locally
+- [ ] GCP Project created with billing enabled
+
+### Required APIs
+Enable these APIs in your GCP project:
+- [ ] Cloud Run API (for containerized apps)
+- [ ] Cloud Build API (for CI/CD)
+- [ ] Cloud SQL API (if using Cloud SQL)
+- [ ] Cloud Storage API (for file storage)
+- [ ] Cloud DNS API (for custom domains)
 
 ```bash
-# .env.example
-GEMINI_API_KEY=your_gemini_api_key_here
-DATABASE_URL=postgresql://user:password@localhost:5432/dbname
-JWT_SECRET=your_jwt_secret_here
-STRIPE_SECRET_KEY=sk_test_your_stripe_key
+# Enable required APIs
+gcloud services enable run.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable sqladmin.googleapis.com
+gcloud services enable storage.googleapis.com
+gcloud services enable dns.googleapis.com
 ```
 
-### API Key Security
-- **Gemini API**: Use OpenAI-compatible libraries with Gemini credentials
-- **Local LLM**: Prefer local models when possible for sensitive data
-- **Rate Limiting**: Implement proper rate limiting for API endpoints
-- **Input Validation**: Always validate and sanitize user inputs
-- **CORS**: Configure proper CORS policies for web applications
+## Environment Setup
 
-### Authentication & Authorization
-- Use secure session management (JWT with proper expiration)
-- Implement proper password hashing (bcrypt, argon2)
-- Add multi-factor authentication where applicable
-- Use HTTPS in production environments
-- Implement proper role-based access control (RBAC)
+### 1. GCP Project Configuration
+```bash
+# Set your project ID
+export PROJECT_ID="your-project-id"
+gcloud config set project $PROJECT_ID
 
-## 🏗️ Code Quality Standards
-
-### Project Structure
-```
-project-name/
-├── .env.example          # Environment variables template
-├── .gitignore           # Git ignore rules
-├── README.md            # Project documentation
-├── DEVLOG.md            # Development progress
-├── package.json         # Dependencies and scripts
-├── src/
-│   ├── components/      # Reusable components
-│   ├── pages/          # Page components
-│   ├── hooks/          # Custom hooks
-│   ├── utils/          # Utility functions
-│   ├── types/          # TypeScript type definitions
-│   └── config/         # Configuration files
-├── public/             # Static assets
-└── tests/              # Test files
+# Set default region
+export REGION="us-central1"
+gcloud config set run/region $REGION
 ```
 
-### TypeScript Usage
-- Use TypeScript for all new projects where applicable
-- Define proper interfaces and types
-- Avoid `any` type - use proper typing
-- Use strict TypeScript configuration
-- Document complex types with JSDoc comments
+### 2. Environment Variables
+Create a `.env.production` file with your production environment variables:
 
-### Error Handling
-- Implement proper error boundaries in React applications
-- Use try-catch blocks for async operations
-- Provide meaningful error messages to users
-- Log errors appropriately (without exposing sensitive data)
-- Implement graceful fallbacks for failed operations
+```bash
+# Database
+DATABASE_URL="your-production-database-url"
 
-## 🧪 Testing & Quality Assurance
+# Project Manager Integration
+PROJECT_MANAGER_DB="your-hosted-project-manager-db-url"
+PROJECT_NAME="your-project-name"
 
-### Testing Strategy
-- Write unit tests for utility functions
-- Add integration tests for API endpoints
-- Include end-to-end tests for critical user flows
-- Maintain test coverage above 80% for critical code
-- Use proper mocking for external dependencies
+# Application
+NODE_ENV="production"
+PORT=8080
 
-### Code Linting & Formatting
-- Use ESLint for JavaScript/TypeScript projects
-- Configure Prettier for consistent code formatting
-- Set up pre-commit hooks with Husky
-- Use consistent naming conventions
-- Follow language-specific style guides
+# Add your project-specific variables
+API_KEY="your-api-key"
+SECRET_KEY="your-secret-key"
+```
 
-## 🚀 Deployment & DevOps
+## Database Setup
 
-### Docker Best Practices
-- Use multi-stage builds to reduce image size
-- Don't run containers as root user
-- Use specific version tags, avoid `latest`
-- Implement health checks
-- Use `.dockerignore` to exclude unnecessary files
+### Option 1: Cloud SQL (PostgreSQL)
+```bash
+# Create Cloud SQL instance
+gcloud sql instances create your-db-instance \
+    --database-version=POSTGRES_14 \
+    --tier=db-f1-micro \
+    --region=$REGION
 
-### CI/CD Pipeline
-- Run tests on every pull request
-- Implement automated security scanning
-- Use environment-specific deployments
-- Implement proper rollback strategies
-- Monitor deployment success/failure
+# Create database
+gcloud sql databases create your-database \
+    --instance=your-db-instance
 
-### Performance Optimization
-- Implement proper caching strategies
-- Optimize database queries
-- Use CDN for static assets
-- Implement lazy loading where appropriate
-- Monitor and optimize bundle sizes
+# Create user
+gcloud sql users create your-user \
+    --instance=your-db-instance \
+    --password=your-secure-password
+```
 
-## 🤖 AI Project Specific Guidelines
+### Option 2: Cloud SQL (MySQL)
+```bash
+# Create MySQL instance
+gcloud sql instances create your-db-instance \
+    --database-version=MYSQL_8_0 \
+    --tier=db-f1-micro \
+    --region=$REGION
+```
 
-### API Usage
-- **Gemini API**: Use OpenAI-compatible libraries for cost efficiency
-- **Local LLM**: Implement fallback to local models for privacy-sensitive operations
-- **Rate Limiting**: Implement proper rate limiting to avoid API quota issues
-- **Caching**: Cache AI responses when appropriate to reduce API calls
-- **Error Handling**: Graceful degradation when AI services are unavailable
+### Option 3: Firestore (NoSQL)
+```bash
+# Enable Firestore
+gcloud firestore databases create --region=$REGION
+```
 
-### Data Privacy
-- Never send sensitive user data to external AI APIs
-- Implement data anonymization where necessary
-- Provide clear privacy policies for AI features
-- Allow users to opt-out of AI features
-- Store minimal data required for functionality
+## Deployment Options
 
-### Local LLM Integration
-- Use lightweight models for simple tasks (e.g., Ollama with Llama 2 7B)
-- Implement proper resource management
-- Provide fallback to cloud APIs when local resources are insufficient
-- Document hardware requirements clearly
-- Implement model downloading and management
+### Option 1: Cloud Run (Recommended for most apps)
 
-## 📱 Frontend Best Practices
+#### 1. Create Dockerfile
+```dockerfile
+FROM node:18-alpine
 
-### React/Vue/Angular Specific
-- Use functional components with hooks (React)
-- Implement proper state management (Zustand, Pinia, NgRx)
-- Optimize re-renders with proper memoization
-- Use proper component composition patterns
-- Implement accessibility (a11y) standards
+WORKDIR /app
 
-### ShadCN/UI Integration
-- Follow ShadCN component patterns consistently
-- Customize theme tokens properly
-- Use proper component composition
-- Implement responsive design patterns
-- Maintain consistent spacing and typography
+COPY package*.json ./
+RUN npm ci --only=production
 
-### Performance
-- Implement code splitting and lazy loading
-- Optimize images and assets
-- Use proper caching strategies
-- Monitor Core Web Vitals
-- Implement proper SEO practices
+COPY . .
+RUN npm run build
 
-## 🗄️ Backend Best Practices
+EXPOSE 8080
 
-### API Design
-- Follow RESTful principles or GraphQL best practices
-- Implement proper HTTP status codes
-- Use consistent response formats
-- Implement API versioning
-- Provide comprehensive API documentation
+CMD ["npm", "start"]
+```
 
-### Database Security
-- Use parameterized queries to prevent SQL injection
-- Implement proper database connection pooling
-- Use database migrations for schema changes
-- Implement proper backup strategies
-- Monitor database performance
+#### 2. Deploy to Cloud Run
+```bash
+# Build and deploy
+gcloud run deploy your-service-name \
+    --source . \
+    --platform managed \
+    --region $REGION \
+    --allow-unauthenticated \
+    --set-env-vars NODE_ENV=production,PROJECT_NAME=your-project-name
+```
 
-### Logging & Monitoring
-- Implement structured logging
-- Monitor application performance
-- Set up proper alerting
-- Track user analytics (with privacy compliance)
-- Implement health check endpoints
+### Option 2: App Engine
+```yaml
+# app.yaml
+runtime: nodejs18
 
-## 🔧 Development Tools
+env_variables:
+  NODE_ENV: production
+  PROJECT_NAME: your-project-name
+  DATABASE_URL: your-database-url
 
-### Recommended Tools
-- **Gemini CLI**: Use for AI-assisted development when available
-- **GitHub CLI**: For repository management and automation
-- **Docker**: For consistent development environments
-- **VS Code**: With proper extensions for each tech stack
-- **Postman/Insomnia**: For API testing
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10
+```
 
-### Git Best Practices
-- Use conventional commit messages
-- Create feature branches for new development
-- Use pull requests for code review
-- Keep commits atomic and focused
-- Write descriptive commit messages
+```bash
+# Deploy to App Engine
+gcloud app deploy
+```
 
-## 📋 Project Checklist
+### Option 3: Compute Engine (For complex applications)
+```bash
+# Create VM instance
+gcloud compute instances create your-vm-name \
+    --image-family=ubuntu-2004-lts \
+    --image-project=ubuntu-os-cloud \
+    --machine-type=e2-micro \
+    --zone=us-central1-a
+```
 
-### Before Starting Development
-- [ ] Set up proper project structure
-- [ ] Configure environment variables
-- [ ] Set up linting and formatting
-- [ ] Initialize testing framework
-- [ ] Configure CI/CD pipeline
+## CI/CD Setup
 
-### Before Deployment
-- [ ] Remove all hardcoded secrets
-- [ ] Test with production-like data
-- [ ] Verify all environment variables
-- [ ] Run security scans
-- [ ] Test deployment process
+### GitHub Actions with GCP
+Create `.github/workflows/deploy.yml`:
 
-### Post-Deployment
-- [ ] Monitor application performance
-- [ ] Set up logging and alerting
-- [ ] Document deployment process
-- [ ] Plan backup and recovery
-- [ ] Schedule security updates
+```yaml
+name: Deploy to GCP
 
-## 🚨 Common Security Pitfalls to Avoid
+on:
+  push:
+    branches: [main]
 
-1. **Committing secrets to git** - Use .env files and .gitignore
-2. **Exposing API keys in frontend** - Use backend proxy for sensitive APIs
-3. **SQL injection** - Use parameterized queries
-4. **XSS attacks** - Sanitize user inputs
-5. **CSRF attacks** - Implement proper CSRF protection
-6. **Insecure dependencies** - Regularly update and audit dependencies
-7. **Weak authentication** - Use strong password policies and MFA
-8. **Insufficient logging** - Log security events properly
-9. **Missing HTTPS** - Always use HTTPS in production
-10. **Improper error handling** - Don't expose sensitive information in errors
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy your-service-name \
+          --source . \
+          --platform managed \
+          --region us-central1 \
+          --allow-unauthenticated
+```
 
 ---
 
-*This document should be referenced for every project in the templates collection to ensure consistent security and quality standards.*
+**Template Instructions:**
+1. Replace all placeholder values with your actual project information
+2. Remove sections that don't apply to your project type
+3. Add project-specific configurations and requirements
+4. Update this document as your deployment evolves
+5. Test all commands in a development environment first
+6. Keep sensitive information in environment variables or Secret Manager

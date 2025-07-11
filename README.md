@@ -1,176 +1,202 @@
-# 🚀 Projects Collection
+# 🚀 Project Template
 
-A comprehensive collection of 200+ modern project templates across different tech stacks and use cases. Each template is production-ready with comprehensive documentation and best practices.
-
-**🎯 NEW: This repository now includes a built-in Project Management Webapp** - A Next.js + TypeScript + shadcn/ui application to manage and track all projects in this collection.
+A standardized project template with comprehensive documentation and best practices for development projects. This template integrates with the [Project Manager](https://github.com/hardik88t/project-manager) webapp for feature and task tracking.
 
 ## 📋 Overview
 
-This repository serves as the central hub for project templates that cover:
-- **Websites & Web Applications** (Portfolio, Business, E-commerce, Dashboards)
-- **CLI Tools & Utilities** (File processors, Dev tools, System utilities)
-- **APIs & Backend Services** (REST, GraphQL, Microservices)
-- **Mobile Applications** (React Native, Flutter, PWAs)
-- **Desktop Applications** (Electron, Tauri, Native)
-- **Browser & VS Code Extensions**
-- **AI/ML Projects** (OpenAI integrations, Local models, AI tools)
-- **DevOps & Infrastructure** (Docker, CI/CD, Monitoring)
-- **Popular App Clones** (Netflix, Spotify, Slack, etc.)
+This template provides a standardized structure for all development projects, including:
+- **📝 Documentation Standards** (README, PLANNING, DEVLOG, GCP)
+- **🔗 Project Manager Integration** (Feature tracking, task management)
+- **🛠️ Development Workflow** (Git practices, commit standards)
+- **☁️ Deployment Guidelines** (GCP setup and configuration)
+- **🤖 AI Integration** (Database queries for project management)
 
-## 🛠️ Tech Stack Coverage
+## 🛠️ Template Features
 
-### Frontend
-- **React** (Vite, Next.js) with **ShadCN/UI** ⭐
-- **Vue.js** (Nuxt.js) with Tailwind CSS
-- **Angular** with Material Design
-- **Svelte/SvelteKit** with modern styling
-- **Vanilla JavaScript** with Web Components
-- **HTMX** for server-side rendered apps
+### 📁 Standard Files
+- **README.md** - Project overview, setup, and usage instructions
+- **PLANNING.md** - Project planning, goals, and milestones
+- **DEVLOG.md** - Development progress and technical decisions
+- **GCP.md** - Google Cloud Platform setup and deployment guide
+- **.env.example** - Environment variables template
 
-### Backend
-- **Node.js** (Express, Fastify, NestJS)
-- **Python** (Django, FastAPI, Flask)
-- **Go** (Gin, Echo, Fiber)
-- **Rust** (Axum, Actix-web)
-- **Java** (Spring Boot)
-- **Ruby** (Rails)
+### 🔗 Project Manager Integration
+- **Database Connection** - Direct access to project manager SQLite database
+- **Feature Tracking** - Query and update project features, bugs, improvements
+- **Task Management** - Sync with centralized project management system
+- **Progress Tracking** - Automated status updates and reporting
 
-### Databases & Services
-- **PostgreSQL**, **MongoDB**, **SQLite**
-- **Supabase**, **Firebase**
-- **Redis** for caching
-- **Prisma** ORM
+### 🤖 AI Assistant Integration
+- **CLI Queries** - Standardized database queries for AI assistance
+- **Project Context** - AI can access project features and status
+- **Automated Updates** - AI can update task status and progress
 
-### Deployment & Infrastructure
-- **Vercel**, **Netlify**, **Railway**
-- **Docker** & **Docker Compose**
-- **GitHub Actions** CI/CD
-- **Custom server deployment**
+## 📁 Project Structure
 
-## 📁 Repository Structure
-
-Each project is maintained as a separate GitHub repository and linked here as git submodules:
+When you use this template, your project will have this structure:
 
 ```
-projects/
-├── project-manager/   # 🆕 Next.js webapp to manage all projects
-├── websites/          # Portfolio, business, e-commerce sites
-├── web-apps/          # Dashboards, blogs, social media apps
-├── cli-tools/         # Command-line utilities and tools
-├── apis/              # REST APIs, GraphQL, microservices
-├── mobile/            # React Native, Flutter, PWA apps
-├── desktop/           # Electron, Tauri desktop applications
-├── browser-extensions/ # Chrome, Firefox extensions
-├── vscode-extensions/ # VS Code development tools
-├── ai-projects/       # AI/ML integrations and tools
-├── devops/           # Docker, CI/CD, monitoring templates
-└── clones/           # Popular app clones and demos
+your-project/
+├── README.md              # Project overview and setup
+├── PLANNING.md           # Project planning and goals
+├── DEVLOG.md            # Development log and decisions
+├── GCP.md               # Google Cloud Platform guide
+├── .env.example         # Environment variables template
+├── .gitignore           # Git ignore patterns
+├── src/                 # Your project source code
+├── docs/                # Additional documentation
+└── scripts/             # Utility scripts
 ```
-
-## 🎯 Featured Projects
-
-### 🌟 ShadCN/UI Showcase
-- **portfolio-react-shadcn** - Modern portfolio with React + ShadCN/UI
-- **dashboard-react-shadcn** - Admin dashboard with charts and analytics
-- **task-manager-react-shadcn** - Task management with drag & drop
-- **ecommerce-nextjs-shadcn** - E-commerce with Stripe integration
-
-### 🤖 AI-Powered Applications
-- **chatgpt-clone-react-openai** - ChatGPT interface with OpenAI API
-- **image-generator-nextjs-dalle** - AI image generation with DALL-E
-- **code-assistant-vscode-openai** - VS Code extension with AI code help
-- **document-chat-python-ollama** - Chat with documents using local AI
-
-### 🔥 Popular Clones
-- **netflix-clone-react-nodejs** - Netflix-style streaming platform
-- **spotify-clone-vue-express** - Music streaming application
-- **slack-clone-react-socketio** - Team communication platform
-- **notion-clone-nextjs-supabase** - Note-taking and productivity app
 
 ## 🚀 Quick Start
 
-### Clone with Submodules
+### 1. Use This Template
 ```bash
-# Clone the main repository with all submodules
-git clone --recursive https://github.com/hardik88t/projects.git
-
-# Or clone and then initialize submodules
-git clone https://github.com/hardik88t/projects.git
-cd projects
-git submodule update --init --recursive
+# Create new project from this template
+gh repo create your-project-name --template hardik88t/projects --public
+cd your-project-name
 ```
 
-### 🆕 Project Management Webapp
+### 2. Set Up Project Manager Connection
 ```bash
-# Navigate to the project manager
-cd project-manager
+# Copy environment template
+cp .env.example .env
 
-# Install dependencies
-npm install
-
-# Set up the database
-npx prisma migrate dev
-
-# Start the development server
-npm run dev
+# Edit .env with your project manager database connection
+# For local development:
+PROJECT_MANAGER_DB="file:../project-manager/prisma/dev.db"
+# For production:
+PROJECT_MANAGER_DB="your-hosted-database-url"
 ```
 
-### Browse Individual Projects
-Each project has its own repository with detailed setup instructions:
+### 3. Register Your Project
+Add your project to the Project Manager webapp:
+- Open Project Manager at http://localhost:3000
+- Click "Add Project"
+- Fill in project details
+- Note the project ID for database queries
 
-1. Navigate to the project category folder
-2. Enter the specific project directory
-3. Follow the README.md instructions for setup
-4. Check DEVLOG.md for development insights
+## � Project Manager Integration
+
+### Database Connection
+Your project can directly access the Project Manager database to get its features and tasks:
+
+```bash
+# Query your project's features (replace 'your-project-name' with actual name)
+sqlite3 $PROJECT_MANAGER_DB "
+  SELECT pi.name, pi.type, pi.status, pi.priority, pi.description
+  FROM ProjectItem pi
+  JOIN Project p ON pi.projectId = p.id
+  WHERE p.name = 'your-project-name'
+  ORDER BY pi.priority DESC, pi.createdAt ASC;
+"
+
+# Get high-priority TODO items for your project
+sqlite3 $PROJECT_MANAGER_DB "
+  SELECT pi.name, pi.description, pi.priority
+  FROM ProjectItem pi
+  JOIN Project p ON pi.projectId = p.id
+  WHERE p.name = 'your-project-name'
+  AND pi.priority IN ('HIGH', 'URGENT')
+  AND pi.status = 'TODO';
+"
+```
+
+### Update Task Status
+When you complete features or fix bugs, update the status in Project Manager:
+
+```bash
+# Mark a feature as completed
+sqlite3 $PROJECT_MANAGER_DB "
+  UPDATE ProjectItem
+  SET status='COMPLETED', updatedAt=datetime('now')
+  WHERE name='Add dark mode toggle'
+  AND projectId=(SELECT id FROM Project WHERE name='your-project-name');
+"
+
+# Mark a feature as in progress
+sqlite3 $PROJECT_MANAGER_DB "
+  UPDATE ProjectItem
+  SET status='IN_PROGRESS', updatedAt=datetime('now')
+  WHERE name='Implement user authentication'
+  AND projectId=(SELECT id FROM Project WHERE name='your-project-name');
+"
+```
 
 ## 📚 Documentation Standards
 
-Every project includes:
-- **README.md** - Setup, usage, and deployment guide
-- **DEVLOG.md** - Development progress and technical decisions
-- **GOALS.md** - Project objectives (for complex projects)
-- **Environment setup** with `.env.example`
-- **Docker configuration** where applicable
-- **CI/CD workflows** for automated testing and deployment
+Every project using this template includes:
+- **README.md** - Project overview, setup instructions, and usage guide
+- **PLANNING.md** - Project goals, milestones, and feature planning
+- **DEVLOG.md** - Development progress, decisions, and technical notes
+- **GCP.md** - Google Cloud Platform deployment and configuration guide
+- **.env.example** - Environment variables template with Project Manager connection
+- **Standardized Git workflow** with conventional commit messages
 
 ## 🛠️ Development Workflow
 
-1. **Project Proposal** - Each new project is proposed with tech stack and features
-2. **Repository Creation** - Individual GitHub repo created with `gh` CLI
+1. **Create Project** - Use this template to create new project repository
+2. **Register in Project Manager** - Add project details and initial features
 3. **Development** - Regular commits with conventional commit messages
-4. **Documentation** - Comprehensive docs written throughout development
-5. **Testing & Deployment** - CI/CD setup and deployment configuration
-6. **Submodule Integration** - Project linked to main projects repository
+4. **Feature Tracking** - Query Project Manager database for current tasks
+5. **Progress Updates** - Update task status via CLI or Project Manager UI
+6. **Documentation** - Maintain DEVLOG.md with development progress
+7. **Deployment** - Follow GCP.md guide for cloud deployment
 
-## 🎯 Current Progress
+## 🤖 AI Assistant Integration
 
-- **Phase 1**: Foundation Projects (20 projects) - 🚧 In Progress
-- **Phase 2**: Diversification (40 projects) - 📋 Planned
-- **Phase 3**: Advanced & Specialized (60 projects) - 📋 Planned
-- **Phase 4**: Completion & Polish (80+ projects) - 📋 Planned
+This template is designed to work seamlessly with AI assistants:
 
-**Target**: 200+ comprehensive project templates
+### For AI Assistants:
+```bash
+# Check what the user is working on
+sqlite3 $PROJECT_MANAGER_DB "
+  SELECT p.name, pi.name, pi.type, pi.priority, pi.status, pi.description
+  FROM ProjectItem pi
+  JOIN Project p ON pi.projectId = p.id
+  WHERE pi.status IN ('TODO', 'IN_PROGRESS')
+  AND pi.priority IN ('HIGH', 'URGENT')
+  ORDER BY pi.priority DESC;
+"
 
-## 🤝 Contributing
+# Update progress when completing tasks
+sqlite3 $PROJECT_MANAGER_DB "
+  UPDATE ProjectItem
+  SET status='COMPLETED', updatedAt=datetime('now')
+  WHERE id='[item-id]';
+"
+```
 
-While this is primarily a personal template collection, suggestions and feedback are welcome:
+## 📋 Template Files
 
-1. **Issues** - Report bugs or suggest improvements
-2. **Discussions** - Share ideas for new project templates
-3. **Pull Requests** - Improvements to documentation or fixes
+This repository includes these template files:
+
+- **README.md** - This file, explains the template system
+- **PLANNING.md** - Template for project planning and goals
+- **DEVLOG.md** - Template for development logging
+- **GCP.md** - Google Cloud Platform deployment guide
+- **.env.example** - Environment variables template
+
+When you create a new project, customize these files for your specific project.
+
+## � Related Repositories
+
+- **Project Manager**: [hardik88t/project-manager](https://github.com/hardik88t/project-manager) - Central webapp for managing all projects
+- **Template Repository**: [hardik88t/projects](https://github.com/hardik88t/projects) - This template repository
 
 ## 📄 License
 
-Each project may have its own license. Check individual project repositories for specific licensing information.
+This template is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-- **Planning Document**: [PLANNING.md](./PLANNING.md)
-- **Development Log**: [DEVLOG.md](./DEVLOG.md)
+- **Planning Template**: [PLANNING.md](./PLANNING.md)
+- **Development Log Template**: [DEVLOG.md](./DEVLOG.md)
+- **GCP Guide**: [GCP.md](./GCP.md)
 - **GitHub Profile**: [@hardik88t](https://github.com/hardik88t)
 
 ---
 
-⭐ **Star this repository** if you find these templates useful!
+⭐ **Star this repository** if you find this template useful!
 
-🚀 **Follow the journey** as we build 200+ modern project templates!
+🚀 **Use this template** to standardize your development projects!
