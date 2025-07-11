@@ -1,7 +1,9 @@
-# Templates Collection - Master Plan
+# Projects Collection - Master Plan
 
 ## Overview
 This repository serves as the central hub for a collection of 200+ project templates across different tech stacks and use cases. Each template is designed to be a starting point for future projects, with comprehensive documentation and best practices. Individual projects are maintained as separate GitHub repositories and linked here as git submodules.
+
+**🆕 NEW ADDITION: Project Management Webapp** - A Next.js + TypeScript + shadcn/ui application to manage, track, and organize all projects in this collection with SQLite database.
 
 ## Project Categories (Target: 200+ Projects)
 
@@ -123,21 +125,28 @@ This repository serves as the central hub for a collection of 200+ project templ
   - API testing tool
 
 ### 9. AI/ML Projects (25-30 projects)
-- **AI API Integrations**
-  - ChatGPT clone (React + OpenAI API)
-  - Image generator (Next.js + DALL-E)
-  - Code assistant (VS Code + OpenAI)
-  - Content writer (Vue + GPT-4)
+- **AI API Integrations (Gemini API - OpenAI Compatible)**
+  - ChatGPT clone (React + Gemini API)
+  - Image generator (Next.js + Gemini API)
+  - Code assistant (VS Code + Gemini API)
+  - Content writer (Vue + Gemini API)
+  - AI chatbot widget (React + Gemini API)
+  - Smart form filler (Chrome Extension + Gemini API)
 
-- **Local AI Models**
-  - Document chat (Python + Ollama)
-  - Image classifier (Python + TensorFlow)
-  - Text summarizer (Python + Transformers)
+- **Local AI Models (Ollama/Small LLMs)**
+  - Document chat (Python + Ollama + Llama 2)
+  - Code reviewer (CLI + Local LLM)
+  - Text summarizer (Node.js + Local LLM)
+  - Privacy-focused chatbot (React + Local LLM)
+  - Offline AI assistant (Electron + Local LLM)
+  - Smart note-taking (Vue + Local LLM)
 
 - **AI-Powered Tools**
-  - Resume builder with AI (React + OpenAI)
-  - Email composer (Next.js + GPT)
-  - Code reviewer (CLI + OpenAI)
+  - Resume builder with AI (React + Gemini API)
+  - Email composer (Next.js + Gemini API)
+  - Content generator (CLI + Gemini API)
+  - Image classifier (Python + TensorFlow)
+  - AI writing assistant (Browser Extension + Local LLM)
 
 ### 10. DevOps/Infrastructure (15-20 projects)
 - **Docker Templates**
@@ -239,7 +248,8 @@ This repository serves as the central hub for a collection of 200+ project templ
 
 ## Repository Structure (Git Submodules)
 ```
-templates/ (Main repository)
+projects/ (Main repository)
+├── project-manager/                     (🆕 Next.js webapp)
 ├── PLANNING.md
 ├── README.md
 ├── DEVLOG.md
@@ -362,7 +372,7 @@ templates/ (Main repository)
 
 ### Git Workflow Standards:
 - Each project is a separate GitHub repository (public)
-- Git submodules link projects to main templates repo
+- Git submodules link projects to main projects repo
 - Conventional commit messages
 - Regular commits for significant progress
 - Proper branching strategy for features

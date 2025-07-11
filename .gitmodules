@@ -1,0 +1,3 @@
+[submodule "project-manager"]
+	path = project-manager
+	url = https://github.com/hardik88t/project-manager.git

@@ -1,6 +1,8 @@
-# 🚀 Templates Collection
+# 🚀 Projects Collection
 
 A comprehensive collection of 200+ modern project templates across different tech stacks and use cases. Each template is production-ready with comprehensive documentation and best practices.
+
+**🎯 NEW: This repository now includes a built-in Project Management Webapp** - A Next.js + TypeScript + shadcn/ui application to manage and track all projects in this collection.
 
 ## 📋 Overview
 
@@ -50,8 +52,9 @@ This repository serves as the central hub for project templates that cover:
 Each project is maintained as a separate GitHub repository and linked here as git submodules:
 
 ```
-templates/
-├── websites/           # Portfolio, business, e-commerce sites
+projects/
+├── project-manager/   # 🆕 Next.js webapp to manage all projects
+├── websites/          # Portfolio, business, e-commerce sites
 ├── web-apps/          # Dashboards, blogs, social media apps
 ├── cli-tools/         # Command-line utilities and tools
 ├── apis/              # REST APIs, GraphQL, microservices
@@ -89,12 +92,27 @@ templates/
 ### Clone with Submodules
 ```bash
 # Clone the main repository with all submodules
-git clone --recursive https://github.com/hardik88t/templates.git
+git clone --recursive https://github.com/hardik88t/projects.git
 
 # Or clone and then initialize submodules
-git clone https://github.com/hardik88t/templates.git
-cd templates
+git clone https://github.com/hardik88t/projects.git
+cd projects
 git submodule update --init --recursive
+```
+
+### 🆕 Project Management Webapp
+```bash
+# Navigate to the project manager
+cd project-manager
+
+# Install dependencies
+npm install
+
+# Set up the database
+npx prisma migrate dev
+
+# Start the development server
+npm run dev
 ```
 
 ### Browse Individual Projects
@@ -122,7 +140,7 @@ Every project includes:
 3. **Development** - Regular commits with conventional commit messages
 4. **Documentation** - Comprehensive docs written throughout development
 5. **Testing & Deployment** - CI/CD setup and deployment configuration
-6. **Submodule Integration** - Project linked to main templates repository
+6. **Submodule Integration** - Project linked to main projects repository
 
 ## 🎯 Current Progress
 
